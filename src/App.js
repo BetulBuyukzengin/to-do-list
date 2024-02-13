@@ -30,7 +30,7 @@ export default function App() {
           display: "grid",
           placeItems: window.innerWidth > 600 && "center",
           placeContent: window.innerWidth < 600 && "center",
-          height: "100vh",
+          height: window.innerWidth > 600 ? "100vh" : "auto",
         }}
         fullWidth
       >
@@ -87,7 +87,7 @@ function ToDoList() {
         sx={{
           width: "100%",
           justifyContent: "center",
-          margin: "1rem",
+          margin: window.innerWidth >= 550 ? "1rem" : "0",
           padding: "1rem",
         }}
         elevation={6}
@@ -307,9 +307,25 @@ function ComplatedDeleteBtn() {
   );
 }
 
-function ListFolder({ onCheck }) {
+function ListFolder() {
   const { todos, dispatch, handleDelete, handleShowTextModal } = useList();
-
+  function handleDescription(item) {
+    if (window.innerWidth >= 1400) {
+      return item.description.length > 35
+        ? item.description.slice(0, 35) + "..."
+        : item.description;
+    }
+    if (window.innerWidth >= 600 && window.innerWidth < 1400) {
+      return item.description.length > 20
+        ? item.description.slice(0, 20) + "..."
+        : item.description;
+    }
+    if (window.innerWidth < 600) {
+      return item.description.length > 15
+        ? item.description.slice(0, 15) + "..."
+        : item.description;
+    }
+  }
   return todos.map((item) => (
     <>
       <ListItem
@@ -324,9 +340,10 @@ function ListFolder({ onCheck }) {
         <ListItemText
           className={item.checked ? "disabled" : ""}
           primary={
-            item.description.length > 20
-              ? item.description.slice(0, 20) + "..."
-              : item.description
+            handleDescription(item)
+            // item.description.length > 20
+            //   ? item.description.slice(0, 20) + "..."
+            //   : item.description
           }
           secondary={item.createdAt}
         ></ListItemText>
@@ -412,7 +429,10 @@ function ShowTextModal() {
           p: 4,
         }}
       >
-        <Typography id="modal-modal-description" sx={{ m: 2 }}>
+        <Typography
+          id="modal-modal-description"
+          sx={{ m: 2, display: "flex", overflowWrap: "anywhere" }}
+        >
           {selectedTodo?.description}
         </Typography>
 
