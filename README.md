@@ -1,6 +1,6 @@
 # 🚀 React Todo List Uygulaması - Material UI ile Zenginleştirilmiş
 * Kullanıcı dostu arayüz için Material UI kütüphanesini tercih ettim ve bu sayede uygulamaya modern ve şık bir görünüm kazandırdım.
-## <a href="https://todo-list-b.netlify.app/">👉 Live version </a>
+## Canlı versiyon : <a href="https://todo-list-b.netlify.app/">Todo List</a>
 
 ## Öne Çıkan Özellikler:
 ### ✅ useReducer ve Context API: 
